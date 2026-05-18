@@ -50,8 +50,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("io.coil-kt.coil3:coil-compose:3.4.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
     val voyagerVersion = "1.1.0-beta02"
     // Navigator
     implementation("cafe.adriel.voyager:voyager-navigator:${voyagerVersion}")
@@ -62,6 +63,8 @@ dependencies {
     implementation("androidx.palette:palette:1.0.0")
     implementation("com.google.dagger:hilt-android:2.59.2")
     ksp("com.google.dagger:hilt-android-compiler:2.59.2")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
