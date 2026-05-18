@@ -14,7 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import cafe.adriel.voyager.navigator.Navigator
 import com.us.starchasers.gm_utils.ui.screens.HomeScreen
 import com.us.starchasers.gm_utils.ui.theme.GMUtilsTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
