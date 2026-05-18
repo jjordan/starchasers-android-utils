@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import cafe.adriel.voyager.navigator.Navigator
 import com.us.starchasers.gm_utils.ui.screens.HomeScreen
+import com.us.starchasers.gm_utils.ui.screens.PokemonListScreen
 import com.us.starchasers.gm_utils.ui.theme.GMUtilsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GMUtilsTheme {
-                Navigator(screen = HomeScreen())
+                Navigator(screen = PokemonListScreen())
                 /*
                                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                                     Greeting(
