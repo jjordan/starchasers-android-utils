@@ -12,11 +12,15 @@ class PokemonRepository @Inject constructor(
     private val api: PokeApi
 ) {
     suspend fun getPokemonList(limit: Int, offset: Int): Resource<PokemonList> {
+        println("in getPokemonList")
         val response = try {
+            println("in getPokemonList try block")
             api.getPokemonList(limit, offset)
         } catch (e: Exception) {
+            println("in getPokemonList exception block")
             return Resource.Error(message = "An error occurred: ${e.message}")
         }
+        println("got resource success: ${response}")
         return Resource.Success(response)
     }
 
