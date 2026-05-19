@@ -23,6 +23,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -75,7 +76,9 @@ class PokemonListScreen: Screen {
 
 
     @Composable
-    fun PokemonHeader() {
+    fun PokemonHeader(
+        viewModel: PokemonListViewModel = hiltViewModel(),
+        ) {
         Surface(
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
@@ -91,7 +94,7 @@ class PokemonListScreen: Screen {
                     hint = "Search...",
                     modifier = Modifier.fillMaxWidth().padding(16.dp)
                 ) {
-                    // do nothing yet
+                    viewModel.searchPokemonList(it)
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 PokemonList()
@@ -128,7 +131,7 @@ class PokemonListScreen: Screen {
                     .background(Color.White, CircleShape)
                     .padding(horizontal = 20.dp, vertical = 12.dp)
                     .onFocusChanged() { focusState ->
-                        isHintDisplayed = !focusState.isFocused
+                        isHintDisplayed = !focusState.isFocused && text.isNotEmpty()
                     }
             )
             if(isHintDisplayed) {
@@ -151,6 +154,7 @@ class PokemonListScreen: Screen {
         val endReached by remember { viewModel.endReached }
         val loadError by remember { viewModel.loadError }
         val isLoading by remember { viewModel.isLoading }
+        val isSearching by remember { viewModel.isSearching }
         println("in PokemonList")
         LazyColumn(contentPadding = PaddingValues(16.dp)) {
             val itemCount = if(pokemonList.size % 2 == 0) {
@@ -159,10 +163,22 @@ class PokemonListScreen: Screen {
                 pokemonList.size / 2 + 1
             }
             items(itemCount) {
-                if (it >= itemCount - 1 && !endReached) {
+                if (it >= itemCount - 1 && !endReached && !isLoading && !isSearching) {
                     viewModel.loadPokemonPaginated()
                 }
                 PokedexRow(it, pokemonList)
+            }
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()) {
+            if(isLoading) {
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+            }
+            if(loadError.isNotEmpty()) {
+                RetrySection(error = loadError) {
+                    viewModel.loadPokemonPaginated()
+                }
             }
         }
     }
@@ -256,6 +272,25 @@ class PokemonListScreen: Screen {
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+
+    @Composable
+    fun RetrySection(
+        error: String,
+        onRetry: () -> Unit,
+    ) {
+        Column() {
+            Text(error, color = Color.Red, fontSize = 18.sp, textAlign = TextAlign.Center)
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = {
+                    onRetry()
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally )
+            ) {
+                Text("Retry")
+            }
         }
     }
 }
