@@ -11,6 +11,7 @@ import androidx.palette.graphics.Palette
 import com.us.starchasers.gm_utils.repository.PokemonRepository
 import com.us.starchasers.gm_utils.util.Constants.PAGE_SIZE
 import com.us.starchasers.gm_utils.util.Resource
+import com.us.starchasers.gm_utils.util.Tools.capitalize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -82,12 +83,7 @@ class PokemonListViewModel @Inject constructor(
                             entry.url.takeLastWhile { it.isDigit() }
                         }
                         val url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png"
-                        val pokemonName = entry.name.replaceFirstChar {
-                            if (it.isLowerCase()) it.titlecase(
-                                Locale.ROOT
-                            ) else it.toString()
-                        }
-                        PokedexListEntry( pokemonName, url, number.toInt())
+                        PokedexListEntry( capitalize(entry.name), url, number.toInt())
                     }
                     currentPage++
                     loadError.value = ""
