@@ -66,6 +66,8 @@ import com.us.starchasers.gm_utils.ui.theme.RobotoFontFamily
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.asDrawable
 import coil3.request.SuccessResult
+import java.util.Locale
+import java.util.Locale.getDefault
 
 class PokemonListScreen: Screen {
 
@@ -216,7 +218,7 @@ class PokemonListScreen: Screen {
                     navigator.push(
                         PokemonDetailScreen(
                             color = dominantColor.toArgb(),
-                            name = entry.pokemonName
+                            name = entry.pokemonName.lowercase(getDefault())
                         )
                     )
                 }
