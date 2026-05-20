@@ -173,7 +173,7 @@ data class PokemonDetailScreen(val color: Int, val name: String): Screen {
                 contentDescription = "back arrow",
                 tint = Color.White,
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(42.dp)
                     .offset(16.dp, 16.dp)
                     .clickable {
                         navigator.pop() // pop back to the list
