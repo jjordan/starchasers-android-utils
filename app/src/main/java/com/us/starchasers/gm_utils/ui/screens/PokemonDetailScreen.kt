@@ -1,9 +1,12 @@
 package com.us.starchasers.gm_utils.ui.screens
 
 import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,8 +31,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -60,6 +67,8 @@ import com.us.starchasers.gm_utils.data.remote.responses.Type
 import com.us.starchasers.gm_utils.util.Resource
 import com.us.starchasers.gm_utils.util.Tools.capitalize
 import com.us.starchasers.gm_utils.util.Tools.parseTypeToColor
+import com.us.starchasers.gm_utils.util.Tools.parseStatToAbbr
+import com.us.starchasers.gm_utils.util.Tools.parseStatToColor
 import kotlin.math.round
 
 data class PokemonDetailScreen(val color: Int, val name: String): Screen {
@@ -227,7 +236,7 @@ data class PokemonDetailScreen(val color: Int, val name: String): Screen {
                 pokemonWeight = pokemonInfo.weight,
                 pokemonHeight = pokemonInfo.height,
                 )
-            // TODO: Pokemon Stats Section
+            PokemonBaseStats(pokemonInfo)
         }
     }
 
@@ -318,6 +327,99 @@ data class PokemonDetailScreen(val color: Int, val name: String): Screen {
                 text = "$dataValue$dataUnit",
                 color = MaterialTheme.colorScheme.onSurface
                 )
+        }
+    }
+
+    @Composable
+    fun PokemonStat(
+        statName: String,
+        statValue: Int,
+        statMaxValue: Int,
+        statColor: Color,
+        height: Dp = 28.dp,
+        animDuration: Int = 1000,
+        animDelay: Int = 0,
+        modifier: Modifier = Modifier
+    ) {
+        var animationPlayed by remember {
+            mutableStateOf(false)
+        }
+        val currentPercent = animateFloatAsState(
+            targetValue = if (animationPlayed) {
+                statValue / statMaxValue.toFloat()
+            } else {
+                0f
+            },
+            animationSpec = tween(animDuration, animDelay)
+        )
+        LaunchedEffect(key1 = true) {
+            animationPlayed = true
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(height)
+                .clip(CircleShape)
+                .background(
+                    if (isSystemInDarkTheme()) {
+                        Color(0xFF505050)
+                    } else {
+                        Color.LightGray
+                    }
+                )
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(currentPercent.value)
+                    .clip(CircleShape)
+                    .background(statColor)
+                    .padding(horizontal = 8.dp)
+            ) {
+                Text(
+                    text = statName,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = (currentPercent.value * statMaxValue).toInt().toString(),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    }
+
+    @Composable
+    fun PokemonBaseStats(
+        pokemonInfo: Pokemon,
+        animDelayPerItem: Int = 100,
+        modifier: Modifier = Modifier
+    ) {
+        val maxBaseStat = remember {
+            pokemonInfo.stats.maxOf { it.base_stat }
+        }
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) { 
+            Text(
+                text = "Base Stats:",
+                fontSize = 20.sp,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            
+            for(i in pokemonInfo.stats.indices) {
+                val stat = pokemonInfo.stats[i]
+                PokemonStat(
+                    statName = parseStatToAbbr(stat),
+                    statValue = stat.base_stat,
+                    statMaxValue = maxBaseStat,
+                    statColor = parseStatToColor(stat),
+                    animDelay = i * animDelayPerItem,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
     }
 }
