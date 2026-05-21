@@ -50,20 +50,22 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("com.jakewharton.timber:timber:5.0.1")
-    implementation("io.coil-kt.coil3:coil-compose:3.4.0")
-    implementation("io.coil-kt.coil3:coil-network-okhttp:3.4.0")
-    val voyagerVersion = "1.1.0-beta02"
+    implementation(libs.androidx.material3.adaptive)
+
+    implementation(libs.timber)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     // Navigator
-    implementation("cafe.adriel.voyager:voyager-navigator:${voyagerVersion}")
+    implementation(libs.voyager.navigator)
     // Screen Model
-    implementation("cafe.adriel.voyager:voyager-screenmodel:${voyagerVersion}")
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    implementation("androidx.palette:palette:1.0.0")
-    implementation("com.google.dagger:hilt-android:2.59.2")
+    implementation(libs.voyager.screenmodel)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.androidx.palette)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.material3)
     ksp("com.google.dagger:hilt-android-compiler:2.59.2")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.androidx.hilt.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

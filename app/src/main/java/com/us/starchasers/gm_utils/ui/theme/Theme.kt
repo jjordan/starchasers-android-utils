@@ -1,6 +1,5 @@
 package com.us.starchasers.gm_utils.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,30 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Color
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
 
 private val DarkColorPalette = darkColorScheme(
-    primary = Color.Yellow,
+    primary = Color(0xFFF6C22E), // main color
+    error = Color(0xFFff4433),
+    secondary = Color(0xFF2ce144),
+    tertiary = Color(0xFFff8f00),
     background = Color(0xFF101010),
     onBackground = Color.White,
     surface = Color(0xFF303030),
@@ -43,8 +24,11 @@ private val DarkColorPalette = darkColorScheme(
 )
 
 private val LightColorPalette = lightColorScheme(
-    primary = Color.Blue,
-    background = LightBlue,
+    primary = Color(0xFF9800d5),
+    error = Color(0xFFff4433),
+    secondary = Color(0xFF2ce144),
+    tertiary = Color(0xFFff8f00),
+    background = Color.LightGray,
     onBackground = Color.Black,
     surface = Color.White,
     onSurface = Color.Black
