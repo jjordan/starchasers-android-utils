@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,7 +33,10 @@ fun PageScaffold(title: String, modifier: Modifier = Modifier, content: @Composa
                 )
             }
             Row(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .wrapContentWidth(align = Alignment.CenterHorizontally),
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.Absolute.Center
             ) {

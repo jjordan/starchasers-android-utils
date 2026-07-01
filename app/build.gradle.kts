@@ -64,9 +64,9 @@ dependencies {
     implementation(libs.androidx.palette)
     implementation(libs.hilt.android)
     implementation(libs.androidx.material3)
-    ksp("com.google.dagger:hilt-android-compiler:2.59.2")
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-
+    implementation(libs.material3.picker)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

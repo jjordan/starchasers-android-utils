@@ -76,7 +76,7 @@ fun HomeScreenButton(name: String, icon: Int, subscreen: Screen, modifier: Modif
                 ) {
                 Icon(
                     painterResource(id = icon),
-                    contentDescription = "Rollable Dice",
+                    contentDescription = "Rollable Dice", // TODO: Fix description
                     modifier = Modifier
                         .size(48.dp)
                         .align(Alignment.CenterVertically),

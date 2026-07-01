@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GM Utils</string>
+    <string name="roll">Roll</string>
+    <string name="attack_roll">Attack Roll</string>
+    <string name="defense_roll">Defense Roll</string>
+    <string name="app_title">Starchasers GM Tools</string>
+    <string name="dice_roller">Dice Roller</string>
 </resources>
