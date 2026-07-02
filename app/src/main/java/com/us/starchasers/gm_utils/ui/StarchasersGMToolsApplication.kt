@@ -5,7 +5,7 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class PokedexApplication: Application() {
+class StarchasersGMToolsApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
